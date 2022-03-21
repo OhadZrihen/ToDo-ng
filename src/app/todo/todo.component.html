@@ -1,0 +1,18 @@
+<h1>Amazing Todo App!</h1>
+<h2>Track your your tasks! Be an orginized person!</h2>
+
+<hr>
+<h4>Add New Task!</h4>
+<form #addForm="ngForm" (submit)="handelSubmit(addForm)">
+    <input type="text" ngModel name="task"><br><br>
+    <button class="btn btn-success" type="submit">Add Task!!!</button>
+    
+</form>
+<hr>
+<h3>Your Tasks</h3>
+<ul>
+    <li *ngFor="let t of tasks">{{t}}
+    </li>
+    
+</ul>
+<button class="btn btn-danger">Remove</button>
