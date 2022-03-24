@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
+
 export interface Task {
   name:string;
   isUpdated:boolean;
@@ -21,6 +22,7 @@ enum SortOptions {
 export class TodoComponent implements OnInit {
 
   tasks:Task[] = [];
+  readonly TASKS_KEY = 'tasks';
   SortEnum = SortOptions;
   sorted = SortOptions.NONE;
   constructor() {
@@ -28,6 +30,10 @@ export class TodoComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    let savedTasksJson = localStorage.getItem(this.TASKS_KEY);
+    if(savedTasksJson !=null){
+      this.tasks = JSON.parse(savedTasksJson);
+    }
   }
 handelSubmit(addForm:NgForm){
   let newTask:Task = {name:addForm.value.task,isUpdated: false,isVisible:true}
@@ -91,5 +97,8 @@ handleSearch(value:string){
   this.tasks.map((task)=>{
     task.isVisible = (task.name.includes(value));
   })
+}
+handleSave():void{
+  localStorage.setItem(this.TASKS_KEY,JSON.stringify(this.tasks))
 }
 }
